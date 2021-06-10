@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+
+<head>
+    <title>All Firebase Data</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <th>sno</th>
+            <th>age</th>
+            <th>email</th>
+            <th>name</th>
+        </thead>
+        <tbody id="as">
+
+        </tbody>
+    </table>
+    <script src="https://www.gstatic.com/firebasejs/8.2.6/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.6/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.6/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.6/firebase-analytics.js"></script>
+
+
+    <script id="MainScript">
+        var firebaseConfig = {
+            apiKey: "AIzaSyBLsJNZSb7lTB7yjVLfhIcy3Nw50g7TBl4",
+            authDomain: "forest-bcaeb.firebaseapp.com",
+            databaseURL: "https://forest-bcaeb-default-rtdb.firebaseio.com",
+            projectId: "forest-bcaeb",
+            storageBucket: "forest-bcaeb.appspot.com",
+            messagingSenderId: "759350100234",
+            appId: "1:759350100234:web:79198dfac4c89ab4d1faf3",
+            measurementId: "G-2DX47MY980"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+
+
+        function SelectAllData() {
+            firebase.database().ref('users').on('value',
+                function (AllRecords) {
+                    AllRecords.forEach(
+                        function (CurrentRecord) {
+                            var Age = CurrentRecord.val().age;
+                            var Email = CurrentRecord.val().email;
+                            var Name = CurrentRecord.val().name;
+                            AddItemsToTable(Age, Email, Name);
+                        }
+                    );
+                });
+        }
+
+        window.onload = SelectAllData();
+
+        var stdNO = 0;
+
+        function AddItemsToTable(Age, Email, Name) {
+            var tbody = document.getElementById('as');
+            var trow = document.createElement('tr');
+            var td1 = document.createElement('td');
+            var td2 = document.createElement('td');
+            var td3 = document.createElement('td');
+            var td4 = document.createElement('td');
+            console.log(Email);
+
+            td1.innerHTML = ++stdNO;
+            td2.innerHTML = Age;
+            td3.innerHTML = Email;
+            td4.innerHTML = Name;
+
+            trow.appendChild(td1);
+            trow.appendChild(td2);
+            trow.appendChild(td3);
+            trow.appendChild(td4);
+            tbody.appendChild(trow);
+        }
+    </script>
+
+
+
+</body>
+
+</html>

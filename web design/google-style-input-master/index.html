@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Style Input Example</title>
+    <link rel="stylesheet" href="./g-input-style.css" />
+</head>
+<body>
+  <form name="submit-to-google-sheet">
+    <input name="email" type="email" placeholder="Email" required>
+    <input name="firstName" type="text" placeholder="First Name">
+    <input name="lastName" type="text" placeholder="Last Name">
+    <button type="submit">Send</button>
+  </form>
+  
+  <script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxGd0e3ep0UhTe4UhD0FrwScX-APC9Oi8KO9Kcnj3QOPF_DylWt/exec'
+    const form = document.forms['submit-to-google-sheet']
+  
+    form.addEventListener('submit', e => {
+      e.preventDefault()
+      swal("Hello world!");
+      fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+        .then(response => console.log('Success!', response))
+        
+        .catch(error => console.error('Error!', error.message))
+    })
+   
+
+  </script>
+
+    <div class="g-input-container">
+        <label>Email or Phone</label>
+        <input />
+      </div>
+      <div class="g-input-container">
+        <label>Password</label>
+        <input />
+      </div>
+
+
+      <script src="./g-input-script.js"></script>
+
+</body>
+</html>

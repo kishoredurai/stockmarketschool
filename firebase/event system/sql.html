@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/vbscript">
+   
+
+Sub Submit_onclick()
+Dim Connection
+Dim ConnString
+Dim Recordset
+
+Set connection=CreateObject("ADODB.Connection")
+Set Recordset=CreateObject("ADODB.Recordset")
+ConnString="DRIVER={SQL Server};SERVER=*YourSQLserverNameHere*;UID=*YourUserIdHere*;PWD=*YourpasswordHere*;DATABASE=*YourDBNameHere*"
+Connection.Open ConnString
+
+dim form1
+Set form1 = document.Register
+
+Name1 = form1.Name.value
+Age1 = form1.Age.Value
+Add1 = form1.address.value
+
+connection.execute("INSERT INTO [*YourTableName*] VALUES ('"&Name1 &"'," &Age1 &",'"&Add1 &"')")
+
+End Sub
+
+
+</script>
+</head>
+<body>
+
+<h2>Please Fill details</h2><br>
+<p>
+<form name="Register">
+<pre>
+<font face="Times New Roman" size="3">Please enter the log in credentials:<br>
+Name:   <input type="text" name="Name">
+Age:        <input type="text" name="Age">
+Address:        <input type="text" name="address">
+<input type="button" id ="Submit" value="submit" /><font></form> 
+</p>
+</pre>
+</body>
+</html>

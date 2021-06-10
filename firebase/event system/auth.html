@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title></title>
+	<script src="https://smtpjs.com/v3/smtp.js"></script>
+	<script type="text/javascript">
+		var dbConnection = SQL.connect({
+			Driver: "MySQL",
+			Host: "localhost",
+			Port: 3306,
+			Database: "busbooking",
+			UserName: "root",
+			Password: ""
+		});
+		var sql = "SELECT * from seats";
+		var result = dbConnection.query(sql);
+		if (!result.isValid) {
+			test.fail("Entry not found.");
+		} else {
+			console.log(result.value("id"));
+			alert(result.value("id"));
+			// test.compare(result.value("name"), context.userData.formValues[0]);
+			// test.compare(result.value("email"), context.userData.formValues[1]);
+			// test.compare(result.value("company"), context.userData.formValues[2]);
+			// test.compare(result.value("country"), context.userData.formValues[3]);
+			// test.compare(result.value("product"), context.userData.formValues[4]);
+		}
+		dbConnection.close();
+
+		function sendEmail() {
+			Email.send({
+					Host: "smtp.gmail.com",
+					Username: "cloud@bitsathy.ac.in",
+					Password: "Cloud@987",
+					To: 'kishore.ct19@bitsathy.ac.in',
+					From: "cloud@bitsathy.ac.in",
+					Subject: "this is an emali id",
+					Body: "empty body",
+				})
+				.then(function (message) {
+					alert("mail sent successfully")
+				});
+		}
+	</script>
+</head>
+
+<body>
+	<form method="post">
+		<input type="button" value="Send Email" onclick="sendEmail()" />
+	</form>
+</body>
+
+</html>
